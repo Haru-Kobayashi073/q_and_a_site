@@ -16,7 +16,12 @@ class QuestionsController < ApplicationController
   
   # 質問の登録
   def create
-    
+    #Questionモデルを初期化
+    @question = Question.new(question_params)
+    #QuestionモデルをDBに保存
+    @question.save
+    #showへリダイレクト
+    redirect_to @question
   end
   
   # 質問の編集
@@ -32,5 +37,10 @@ class QuestionsController < ApplicationController
   # 質問の削除
   def destroy
     
+  end
+  
+  private
+  def question_params
+    params.require(:question).permit(:title, :name, :content)
   end
 end
